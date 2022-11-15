@@ -2,4 +2,10 @@
 
 Depandances:
     - node
-    - 
+    - sequelize
+    - mysql2
+    - express
+    - cors
+
+DataBase: 
+
