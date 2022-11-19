@@ -130,12 +130,12 @@ paths:
       description: Add a new player
       operationId: addPlayer
       responses:
-        '200':
+        '201':
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Player'          
+                $ref: "#/components/responses/ResourceCreated"         
         '405':
           description: Invalid input
   /players/{name}:
@@ -344,3 +344,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/User'
+  responses:
+    ResourceCreated:
+      description: "The resource has been created"
+      content:
+        application/json:
+          schema:
+            type: object
+            required : [ success, id ]
+            properties:
+              success:
+                type: boolean
+                default: true
+                example: true
+              id:
+                type: integer
+                example: 1
+                description: "The id of the ressource created"
