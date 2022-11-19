@@ -4,21 +4,21 @@ exports.getAllPlayers = async () => {
     return await db.players.findAll();
 }
 
-exports.getPlayerByName = async (nameTeam) => {
+exports.getPlayerByName = async (name) => {
     return await db.players.findAll({
         where: {
-            nameTeam
+            name
         }
     });
 }
-exports.addPlayer = async (nameTeam) => {
-    return await db.players.create({nameTeam});
+exports.addPlayer = async (name,lastName,position,nameTeam) => {
+    return await db.players.create({name,lastName,position,nameTeam});
 }
 
-exports.deletePlayer = async (nameTeam) => {
+exports.deletePlayer = async (name) => {
     return await db.players.destroy({
         where: {
-            nameTeam
+            name
         }
     });
 }
