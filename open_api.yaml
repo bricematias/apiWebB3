@@ -190,7 +190,7 @@ paths:
     post:
       tags:
         - users
-      summary: Add new user
+      summary: Add user
       operationId: addUser
       requestBody:
         description: Created user object
@@ -209,14 +209,14 @@ paths:
           description: successful operation
         '400':
           description: Invalid pet value
-  /users/{name}:
+  /users/{id}:
     get:
       tags:
        - users
-      summary: Finds users by name
-      operationId: getUser
+      summary: Finds users by id
+      operationId: getUserById
       parameters:
-        - name: name
+        - name: id
           in: path
           required: true
           schema:
@@ -228,7 +228,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
-  /users/{id}:
     delete:
       tags:
         - users
