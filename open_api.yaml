@@ -126,9 +126,9 @@ paths:
     post:
       tags:
         - players
-      summary: Add a team
-      description: Add a new team
-      operationId: addteam
+      summary: Add a player
+      description: Add a new player
+      operationId: addPlayer
       responses:
         '200':
           description: Successful operation
