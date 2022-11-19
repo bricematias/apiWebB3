@@ -1,1 +1,347 @@
-//HELLO
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+    NBA SQUAD 
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: "{protocol}://{server}"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      server:
+        default: localhost:3000
+tags:
+  - name: teams
+    description: Everything about teams
+  - name: players
+    description: Everything about player
+  - name: users
+    description: Everything about user
+paths:
+  /teams:
+    get:
+      tags:
+        - teams
+      summary: Get all teams
+      description: Return all teams
+      operationId: getAllTeams
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/TeamList'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/TeamList'
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+    post:
+      tags:
+        - teams
+      summary: Add a team
+      description: Add a new team
+      operationId: addTeam
+      requestBody:
+        $ref: "#/components/requestBodies/TeamCreation"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '405':
+          description: Invalid input
+  /teams/{name} :
+    get:
+      tags:
+        - teams
+      summary: Finds teams by name
+      operationId: getTeamsByName
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+        '400':
+          description: Invalid status value
+    delete:
+      tags:
+        - teams
+      summary: Deletes a team
+      operationId: deleteTeam
+      parameters:
+        - name: name
+          in: path
+          description: Teams name to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid team value
+  /players:
+    get:
+      tags:
+        - players
+      summary: Returns all players
+      operationId: getAllPlayers
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerList'
+    post:
+      tags:
+        - players
+      summary: Add a player
+      description: Add a new player
+      operationId: addPlayer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'          
+        '405':
+          description: Invalid input
+  /players/{name}:
+    get:
+      tags:
+        - players
+      summary: Finds teams by player
+      operationId: getPlayer
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+    delete:
+      tags:
+        - players
+      summary: Deletes a player
+      operationId: deletePlayer
+      parameters:
+        - name: name
+          in: path
+          description: Player name to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid player name value
+  /users:
+    get:
+      tags:
+        - users
+      summary: Returns All User
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserList"
+    post:
+      tags:
+        - users
+      summary: Create user
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid pet value
+  /users/{name}:
+    get:
+      tags:
+       - users
+      summary: Finds users by name
+      operationId: getUser
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /users/{id}:
+    delete:
+      tags:
+        - users
+      summary: Deletes a player
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          description: User id to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid player name value
+components:
+  requestBodies:
+    TeamCreation:
+      required: true
+      description: Team object that needs to be created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Team'
+    PlayerCreation:
+      required: true
+      description: Team object that needs to be created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Player'
+    UserCreation:
+      required: true
+      description: Team object that needs to be created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+  
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nom:
+          type: string
+          example: "Vaturla"
+        prenom:
+          type: string
+          example: "Matias"
+        password:
+          type: string
+          example: "GrosMotDePasse12"
+    Player:
+      type: object
+      properties :
+        id:
+          type: integer
+          example: 1
+        nom:
+          type: string
+          example: "Vaturla"
+        prenom:
+          type: string
+          example: "Matias"
+        position:
+          type: string
+        nameTeam:
+          type: string
+    PlayerList :
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: true
+          example: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Player'
+          
+    Team:
+      type: object
+      properties :
+        id:
+          type: integer
+          example: 1
+        nameTeam:
+          type: string
+          example: "Lakers"
+    TeamList:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: true
+          example: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+    UserList:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: true
+          example: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
