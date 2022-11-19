@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.use(
     OpenApiValidator.middleware({
-        apiSpec: './open-api.yaml'
+        apiSpec: './open_api.yaml'
     })
 );
 
