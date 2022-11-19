@@ -6,6 +6,7 @@ Depandances:
     - mysql2
     - express
     - cors
+    - express-openapi-validator
 
 DataBase: 
 

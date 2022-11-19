@@ -4,6 +4,7 @@ module.exports = (instance) => {
     return instance.define('players', {
         playerId:{
             type: DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
             foreignKey: true
         },

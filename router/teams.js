@@ -1,10 +1,10 @@
-const express = require('express'),
+/* const express = require('express'),
     router = express.Router(),
-    teamController = require('../controller/teams');
+    teamsController = require('../controller/teams');
 
-router.get('/', teamController.getAllTeams);
-router.get('/:name', teamController.getTeamsByName);
-router.post('/', teamController.addTeam);
-router.delete('/:name', teamController.deleteTeam);
+router.get('/', teamsController.getAllTeams);
+router.get('/:name', teamsController.getTeamsByName);
+router.post('/', teamsController.addTeam);
+router.delete('/:name', teamsController.deleteTeam);
 
-module.exports = router;
+module.exports = router; */

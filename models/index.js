@@ -9,9 +9,8 @@ const instance  = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.p
 module.exports = {
     instance,
     users: require('./users')(instance),
-    player: require('./players')(instance),
-    team: require('./teams')(instance)
-
+    players: require('./players')(instance),
+    teams: require('./teams')(instance)
 };
 
 instance.models.teams.hasOne(instance.models.players, {foreignKey: 'teamId'});
