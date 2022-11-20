@@ -1,4 +1,4 @@
-const playerService = require('../services/players');
+/* const playerService = require('../services/players');
 const createError = require('http-errors');
 
 exports.getAllPlayers = async (req, res) => {
@@ -47,4 +47,4 @@ exports.deletePlayer = async (req, res, next) => {
    } else {
       next(createError(400, "The name is required"));
    }
-}
+}*/

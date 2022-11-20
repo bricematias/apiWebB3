@@ -1,4 +1,4 @@
-const teamsService = require('../services/teams');
+/* const teamsService = require('../services/teams');
 const createError = require('http-errors');
 
 exports.getAllTeams = async (req, res) => {
@@ -47,4 +47,4 @@ exports.deleteTeam = async (req, res, next) => {
     } else {
         next(createError(400, "The name is required"));
     }
-}
+}*/

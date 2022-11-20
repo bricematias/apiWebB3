@@ -7,4 +7,4 @@ router.get('/:name', teamsController.getTeamsByName);
 router.post('/', teamsController.addTeam);
 router.delete('/:name', teamsController.deleteTeam);
 
-module.exports = router; */
+module.exports = router;*/
