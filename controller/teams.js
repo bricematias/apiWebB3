@@ -1,4 +1,4 @@
-/* const teamsService = require('../services/teams');
+const teamsService = require('../services/teams');
 const createError = require('http-errors');
 
 exports.getAllTeams = async (req, res) => {
@@ -8,8 +8,8 @@ exports.getAllTeams = async (req, res) => {
 }
 
 exports.getTeamsByName = async (req, res, next) => {
-   let teamsName = req.params.teams; // We are sure here by using validator that we have a valid number, we can parseInt
-   const teams = await teamsService.getTeamsByName(teamsName);
+   let nameTeam = req.params.nameTeam; // We are sure here by using validator that we have a valid number, we can parseInt
+   const teams = await teamsService.getTeamsByName(nameTeam);
    if (teams && teams.length === 1) {
       res.json({success: true, data: teams[0]});
    } else {
@@ -32,19 +32,19 @@ exports.addTeam = async (req, res, next) => {
 
 exports.deleteTeam = async (req, res, next) => {
     if (req.params.nameTeam) {
-        const name = req.params.nameTeam;
-        const teams = await teamsService.getTeamByName(name);
+        const nameTeam = req.params.nameTeam;
+        const teams = await teamsService.getTeamsByName(nameTeam);
         if (teams.length === 1) {
-            const nbOfDeletion = await teamsService.deleteTeam(name);
+            const nbOfDeletion = await teamsService.deleteTeam(nameTeam);
             if (nbOfDeletion === 1) {
                 res.json({success: true});
             } else {
                 next(createError(500, 'Unknown error when trying to delete this teams, maybe it\'s already deleted'));
             }
         } else {
-            next(createError(404, `The team with name '${name}' doesn't exists, it cannot be deleted`));
+            next(createError(404, `The team with name '${nameTeam}' doesn't exists, it cannot be deleted`));
         }
     } else {
         next(createError(400, "The name is required"));
     }
-}*/
+}

@@ -3,6 +3,7 @@ const db = require('../models');
 exports.getAllPlayers = async () => {
     return await db.players.findAll();
 }
+
 exports.getPlayerByName = async (name) => {
     return await db.players.findAll({
         where: {
@@ -10,13 +11,20 @@ exports.getPlayerByName = async (name) => {
         }
     });
 }
-exports.addPlayer = async (name,lastName,position,nameTeam) => {
-    return await db.players.create({name,lastName,position,nameTeam});
+exports.getPlayerById = async (playerId) => {
+    return await db.players.findAll({
+        where: {
+            playerId
+        }
+    });
 }
-exports.deletePlayer = async (name) => {
+exports.addPlayer = async (name,lastName,position,teamId) => {
+    return await db.players.create({name,lastName,position,teamId});
+}
+exports.deletePlayer = async (playerId) => {
     return await db.players.destroy({
         where: {
-            name
+            playerId
         }
     });
 }

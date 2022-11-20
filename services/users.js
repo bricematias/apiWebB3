@@ -16,7 +16,7 @@ exports.addUser = async(firstName,lastName,password) => {
 }
 
 exports.deleteUser = async(id) => {
-    return await db.teams.destroy({
+    return await db.users.destroy({
         where: {
             id
         }
