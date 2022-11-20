@@ -8,8 +8,8 @@ exports.getAllPlayers = async (req, res) => {
 }
 
 exports.getPlayerByName = async (req, res, next) => {
-   let playerId = parseInt(req.params.id); // We are sure here by using validator that we have a valid number, we can parseInt
-   const players = await playerService.getPlayerByName(playerId);
+   let playerName = req.params.name; // We are sure here by using validator that we have a valid number, we can parseInt
+   const players = await playerService.getPlayerByName(playerName);
    if (players && players.length === 1) {
       res.json({success: true, data: players[0]});
    } else {
@@ -17,11 +17,11 @@ exports.getPlayerByName = async (req, res, next) => {
    }
 }
 
-exports.addPlayer = async (req, res, next) => {
-   if (req.body && req.body.name && req.body.prenom && req.body.position && req.body.nameTeam) {
-      const playerCreated = await playerService.addPlayer(req.body.name, req.body.prenom, req.body.position, req.body.nameTeam);
+exports.addTeam = async (req, res, next) => {
+   if (req.body && req.body.nameTeam) {
+      const playerCreated = await playerService.addPlayer(req.body.nameTeam);
       if (playerCreated) {
-         res.status(201).json({success: true, id: playerCreated.playerId});
+         res.status(201).json({success: true, id: playerCreated.name});
       } else {
          next(createError(400, "Error when creating this player, verify your args"));
       }
@@ -33,13 +33,13 @@ exports.addPlayer = async (req, res, next) => {
 exports.deletePlayer = async (req, res, next) => {
    if (req.params.name) {
       const name = req.params.name;
-      const players = await booksService.getPlayerByName(name);
+      const players = await playersService.getPlayerByName(name);
       if (players.length === 1) {
-         const nbOfDeletion = await booksService.deletePlayer(name);
+         const nbOfDeletion = await playersService.deletePlayer(name);
          if (nbOfDeletion === 1) {
             res.json({success: true});
          } else {
-            next(createError(500, 'Unknown error when trying to delete this book, maybe it\'s already deleted'));
+            next(createError(500, 'Unknown error when trying to delete this player, maybe it\'s already deleted'));
          }
       } else {
          next(createError(404, `The player with name '${name}' doesn't exists, it cannot be deleted`));
