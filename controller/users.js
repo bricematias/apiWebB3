@@ -1,6 +1,5 @@
 const userService = require("../services/users");
 const createError = require("http-errors");
-const playerService = require("../services/players");
 
 exports.getAllUsers = async (req, res) => {
     const users = await userService.getAllUsers();
