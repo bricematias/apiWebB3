@@ -7,6 +7,9 @@ Depandances:
     - express
     - cors
     - express-openapi-validator
+    - jest
+    - jsonwebtoken
+    - bcrypt
 
 DataBase: 
 
