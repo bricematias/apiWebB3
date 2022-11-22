@@ -4,7 +4,7 @@ exports.getAllPlayers = async () => {
     return await db.players.findAll();
 }
 
-exports.getPlayerByName = async (firstname) => {
+exports.getPlayerByFirstname = async (firstname) => {
     return await db.players.findAll({
         where: {
             firstname

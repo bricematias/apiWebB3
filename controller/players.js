@@ -18,8 +18,8 @@ exports.getPlayerByFirstname = async (req, res, next) => {
 }
 
 exports.addPlayer = async (req, res, next) => {
-   if (req.body && req.body.name && req.body.lastName && req.body.position && req.body.teamId) {
-      const playerCreated = await playerService.addPlayer(req.body.name , req.body.lastName , req.body.position , req.body.teamId);
+   if (req.body && req.body.firstname && req.body.lastname && req.body.position && req.body.teamId) {
+      const playerCreated = await playerService.addPlayer(req.body.firstname , req.body.lastname , req.body.position , req.body.teamId);
       if (playerCreated) {
          res.status(201).json({success: true, id: playerCreated.id});
       } else {
@@ -42,7 +42,7 @@ exports.deletePlayer = async (req, res, next) => {
             next(createError(500, 'Unknown error when trying to delete this player, maybe it\'s already deleted'));
          }
       } else {
-         next(createError(404, `The player with name '${id}' doesn't exists, it cannot be deleted`));
+         next(createError(404, `The player with id '${id}' doesn't exists, it cannot be deleted`));
       }
    } else {
       next(createError(400, "The name is required"));
