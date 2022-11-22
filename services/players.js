@@ -4,10 +4,10 @@ exports.getAllPlayers = async () => {
     return await db.players.findAll();
 }
 
-exports.getPlayerByName = async (name) => {
+exports.getPlayerByName = async (firstname) => {
     return await db.players.findAll({
         where: {
-            name
+            firstname
         }
     });
 }
@@ -18,8 +18,8 @@ exports.getPlayerById = async (playerId) => {
         }
     });
 }
-exports.addPlayer = async (name,lastName,position,teamId) => {
-    return await db.players.create({name,lastName,position,teamId});
+exports.addPlayer = async (firstname,lastName,position,teamId) => {
+    return await db.players.create({firstname,lastName,position,teamId});
 }
 exports.deletePlayer = async (playerId) => {
     return await db.players.destroy({

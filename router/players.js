@@ -3,7 +3,7 @@ const express = require('express'),
     playersController = require('../controller/players');
 
 router.get('/', playersController.getAllPlayers);
-router.get('/:name', playersController.getPlayerByName);
+router.get('/:firstname', playersController.getPlayerByFirstname);
 router.post('/', playersController.addPlayer);
 router.delete('/:id', playersController.deletePlayer);
 

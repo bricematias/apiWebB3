@@ -8,7 +8,7 @@ module.exports = (instance) => {
             primaryKey: true,
             foreignKey: true
         },
-        name: {
+        firstname: {
             type: DataTypes.STRING,
         },
         lastName: {

@@ -7,13 +7,13 @@ exports.getAllPlayers = async (req, res) => {
    res.json({success: true, data: players});
 }
 
-exports.getPlayerByName = async (req, res, next) => {
-   let playerName = req.params.name; // We are sure here by using validator that we have a valid number, we can parseInt
-   const players = await playerService.getPlayerByName(playerName);
+exports.getPlayerByFirstname = async (req, res, next) => {
+   let playerFirstname = req.params.firstname; // We are sure here by using validator that we have a valid number, we can parseInt
+   const players = await playerService.getPlayerByFirstname(playerFirstname);
    if (players && players.length === 1) {
       res.json({success: true, data: players[0]});
    } else {
-      next(createError(404, "no player found for this name"));
+      next(createError(404, "no player found for this firstname"));
    }
 }
 
