@@ -245,6 +245,22 @@ paths:
           description: Successful operation
         '400':
           description: Invalid player name value
+  /auth:
+    post:
+      tags:
+        - auth
+      summary: authentification
+      operationId: login
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Password is incorrect
+        '404':
+          description: This user doesn\'t exists
+        '400':
+          description: username and password are required
+
 components:
   requestBodies:
     TeamCreation:

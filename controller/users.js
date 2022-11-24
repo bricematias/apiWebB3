@@ -1,5 +1,6 @@
 const userService = require("../services/users");
 const createError = require("http-errors");
+const bcrypt = require('bcrypt');
 
 exports.getAllUsers = async (req, res) => {
     const users = await userService.getAllUsers();
@@ -27,12 +28,17 @@ exports.getUserById = async (req, res) => {
 
 exports.addUser = async (req, res, next) => {
     if (req.body && req.body.firstName && req.body.lastName && req.body.password) {
-        const userCreated = await userService.addUser(req.body.firstName , req.body.lastName , req.body.password);
-        if (userCreated) {
-            res.status(201).json({success: true, id: userCreated.id});
-        } else {
-            next(createError(400, "Error when creating this player, verify your args"));
-        }
+        const saltRounds = 10;
+        bcrypt.genSalt(saltRounds, function(err, salt) {
+            bcrypt.hash(req.body.password, salt, async function(err, hash) {
+                const userCreated = await userService.addUser(req.body.firstName , req.body.lastName , hash);
+                if (userCreated) {
+                    res.status(201).json({success: true, id: userCreated.id});
+                } else {
+                    next(createError(400, "Error when creating this player, verify your args"));
+                }
+            });
+        });
     } else {
         next(createError(400, "Cannot add this player, make sure all args has been sent"));
     }
