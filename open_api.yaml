@@ -30,6 +30,8 @@ tags:
     description: Everything about player
   - name: users
     description: Everything about user
+  - name: initialisation
+  - name: authentification
 paths:
   /teams:
     get:
@@ -61,7 +63,7 @@ paths:
       requestBody:
         $ref: "#/components/requestBodies/TeamCreation"
       responses:
-        '200':
+        '201':
           description: Successful operation
           content:
             application/json:
@@ -70,6 +72,8 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Team'
+        '400':
+          description: Incomplete or invalid data
         '405':
           description: Invalid input
   /teams/{name} :
@@ -248,8 +252,8 @@ paths:
   /auth:
     post:
       tags:
-        - auth
-      summary: authentification
+        - authentification
+      summary: authentification of user
       operationId: login
       responses:
         '200':
@@ -260,6 +264,15 @@ paths:
           description: This user doesn\'t exists
         '400':
           description: username and password are required
+  /init:
+    post:
+      tags: 
+        - initialisation
+      summary: initialisation of database with other API
+      operationId: initialisation
+      responses:
+        '200':
+          description: Successful operation
 
 components:
   requestBodies:

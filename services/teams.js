@@ -4,21 +4,30 @@ exports.getAllTeams = async () => {
     return await db.teams.findAll();
 }
 
-exports.getTeamsByName = async(nameTeam) => {
+exports.getTeamsById= async(teamId) => {
+    return await db.teams.findAll({
+        where: {
+            teamId
+        }
+    });
+}
+
+exports.getTeamsByName= async(nameTeam) => {
     return await db.teams.findAll({
         where: {
             nameTeam
         }
     });
 }
+
 exports.addTeam = async(nameTeam) => {
     return await db.teams.create({nameTeam});
 }
 
-exports.deleteTeam = async(nameTeam) => {
+exports.deleteTeam = async(teamId) => {
     return await db.teams.destroy({
         where: {
-            nameTeam
+            teamId
         }
     });
 }
