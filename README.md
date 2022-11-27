@@ -12,3 +12,5 @@ Depandances:
     - bcrypt
     - axios
     - json
+    
+Change name and password of database in "db.config.js"
