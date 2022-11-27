@@ -29,3 +29,14 @@ exports.deletePlayer = async (playerId) => {
     });
 }
 
+exports.updatePlayer = async (playerId, firstName, lastName, position, teamId) => {
+    return await db.players.update({
+        firstname: firstName,
+        lastName: lastName,
+        position: position,
+        teamId: teamId
+    },
+    {
+        where: {playerId: playerId}
+    });
+}

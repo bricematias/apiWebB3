@@ -5,6 +5,7 @@ const express = require('express'),
 
 router.get('/', playersController.getAllPlayers);
 router.get('/:id', playersController.getPlayerById);
+router.patch('/:id', playersController.updatePlayer);
 router.post('/',authMiddleware, playersController.addPlayer);
 router.delete('/:id',authMiddleware, playersController.deletePlayer);
 
