@@ -10,6 +10,4 @@ Depandances:
     - jest
     - jsonwebtoken
     - bcrypt
-
-DataBase: 
-
+    - axios

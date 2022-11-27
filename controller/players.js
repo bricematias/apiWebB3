@@ -7,9 +7,9 @@ exports.getAllPlayers = async (req, res) => {
    res.json({success: true, data: players});
 }
 
-exports.getPlayerByFirstname = async (req, res, next) => {
-   let playerFirstname = req.params.firstname; // We are sure here by using validator that we have a valid number, we can parseInt
-   const players = await playerService.getPlayerByFirstname(playerFirstname);
+exports.getPlayerById = async (req, res, next) => {
+   let playerId = req.params.id; // We are sure here by using validator that we have a valid number, we can parseInt
+   const players = await playerService.getPlayerById(playerId);
    if (players && players.length === 1) {
       res.json({success: true, data: players[0]});
    } else {
@@ -21,7 +21,7 @@ exports.addPlayer = async (req, res, next) => {
    if (req.body && req.body.firstname && req.body.lastname && req.body.position && req.body.teamId) {
       const playerCreated = await playerService.addPlayer(req.body.firstname , req.body.lastname , req.body.position , req.body.teamId);
       if (playerCreated) {
-         res.status(201).json({success: true, id: playerCreated.id});
+         res.status(201).json({success: true, id: playerCreated.playerId});
       } else {
          next(createError(400, "Error when creating this player, verify your args"));
       }
