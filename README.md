@@ -12,6 +12,7 @@ Depandances:
     - bcrypt
     - axios
     - json
+    - supertest
     
 Change username, database and password of database in "db.config.js"
 Create a user for to be authenticated

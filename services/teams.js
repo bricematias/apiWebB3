@@ -31,4 +31,12 @@ exports.deleteTeam = async(teamId) => {
         }
     });
 }
+exports.updateTeam = async (teamId,nameTeam) => {
+    return await db.teams.update({
+            nameTeam: nameTeam,
+        },
+        {
+            where: {teamId: teamId}
+        });
+}
 
