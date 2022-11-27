@@ -22,3 +22,14 @@ exports.deleteUser = async(id) => {
         }
     });
 }
+
+exports.updateUser = async (id, firstName, lastName, password) => {
+    return await db.users.update({
+        firstName: firstName,
+        lastName: lastName,
+        password: password
+    },
+    {
+        where: {id}
+    });
+}

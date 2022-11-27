@@ -24,15 +24,11 @@ exports.authMiddleware = async (req, res, next) => {
 }
 
 exports.login = async (req, res) => {
-    console.log("LOGIN");
     if (req.body.firstName && req.body.password) {
-        console.log("user");
         const user = await db.users.findOne({
             where: {firstName: req.body.firstName}
         });
-        console.log("USER");
         if (user){
-            console.log("verifiedUser");
             bcrypt.compare(req.body.password, user.password, function(err, result) {
                 if (result){
                     console.log("token");
