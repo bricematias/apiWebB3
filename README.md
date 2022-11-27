@@ -11,3 +11,4 @@ Depandances:
     - jsonwebtoken
     - bcrypt
     - axios
+    - json
