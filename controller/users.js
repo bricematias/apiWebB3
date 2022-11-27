@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt');
 
 exports.getAllUsers = async (req, res) => {
     const users = await userService.getAllUsers();
-
     res.json({ success: true, data: users });
 };
 
@@ -66,34 +65,38 @@ exports.deleteUser = async (req, res, next) => {
 exports.updateUser = async (req, res, next) => {
     if(req.body && req.params.id) {
         const oldUser = await userService.getUserById(req.params.id);
-        let firstname;
-        let lastName;
-        let password;
-        oldUser.map(async (user) => {
-            req.body.firstname ? firstname = req.body.firstname : firstname = user.dataValues.firstname;
-            req.body.lastName ? lastName = req.body.lastName : lastName = user.dataValues.lastName;
-            if(req.body.password){
-                const saltRounds = 10;
-                bcrypt.genSalt(saltRounds, function(err, salt) {
-                    bcrypt.hash(req.body.password, salt, async function(err, hash) {
-                        const userUpdated = await userService.updateUser(req.params.id, firstname, lastName, hash);
-                        if (userUpdated) {
-                            res.status(200).json({success: true});
-                        } else {
-                            next(createError(400, "Error when creating this user, verify your args"));
-                        }
+        if(oldUser === 1){
+            let firstname;
+            let lastName;
+            let password;
+            oldUser.map(async (user) => {
+                req.body.firstname ? firstname = req.body.firstname : firstname = user.dataValues.firstname;
+                req.body.lastName ? lastName = req.body.lastName : lastName = user.dataValues.lastName;
+                if(req.body.password){
+                    const saltRounds = 10;
+                    bcrypt.genSalt(saltRounds, function(err, salt) {
+                        bcrypt.hash(req.body.password, salt, async function(err, hash) {
+                            const userUpdated = await userService.updateUser(req.params.id, firstname, lastName, hash);
+                            if (userUpdated) {
+                                res.status(200).json({success: true});
+                            } else {
+                                next(createError(400, "Error when creating this user, verify your args"));
+                            }
+                        });
                     });
-                });
-            } else {
-                password = user.dataValues.password;
-                const userUpdated = await userService.updateUser(req.params.id, firstname, lastName, password);
-                if (userUpdated) {
-                    res.status(200).json({success: true});
                 } else {
-                    next(createError(400, "Error when updating this user, verify your args"));
+                    password = user.dataValues.password;
+                    const userUpdated = await userService.updateUser(req.params.id, firstname, lastName, password);
+                    if (userUpdated) {
+                        res.status(200).json({success: true});
+                    } else {
+                        next(createError(400, "Error when updating this user, verify your args"));
+                    }
                 }
-            }
-        })
+            })
+        } else {
+            next(createError(400, "This user not exist"));
+        }
     } else {
        next(createError(400, "Cannot update this user, make sure all args has been sent"));
     }

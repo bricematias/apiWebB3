@@ -13,7 +13,7 @@ exports.getPlayerById = async (req, res, next) => {
    if (players && players.length === 1) {
       res.json({success: true, data: players[0]});
    } else {
-      next(createError(404, "no player found for this firstname"));
+      next(createError(404, "no player found for this Id"));
    }
 }
 
@@ -26,7 +26,7 @@ exports.addPlayer = async (req, res, next) => {
          next(createError(400, "Error when creating this player, verify your args"));
       }
    } else {
-      next(createError(400, "Cannot add this player, make sure all args has been sent"));
+      next(createError(405, "Cannot add this player, make sure all args has been sent"));
    }
 }
 
@@ -52,18 +52,22 @@ exports.deletePlayer = async (req, res, next) => {
 exports.updatePlayer = async (req, res, next) => {
    if(req.body && req.params.id) {
       const oldPlayer = await playerService.getPlayerById(req.params.id);
-      let firstname;
-      let lastName;
-      let position;
-      let teamId;
-      oldPlayer.map(async (player) => {
-         req.body.firstname ? firstname = req.body.firstname : firstname = player.dataValues.firstname;
-         req.body.lastName ? lastName = req.body.lastName : lastName = player.dataValues.lastName;
-         req.body.position ? position = req.body.position : position = player.dataValues.position;
-         req.body.teamId ? teamId = req.body.teamId : teamId = player.dataValues.teamId;
-         await playerService.updatePlayer(req.params.id, firstname, lastName, position, teamId);
-         res.json({success: true});
-      })
+      if(oldPlayer.length === 1){
+         let firstname;
+         let lastName;
+         let position;
+         let teamId;
+         oldPlayer.map(async (player) => {
+            req.body.firstname ? firstname = req.body.firstname : firstname = player.dataValues.firstname;
+            req.body.lastName ? lastName = req.body.lastName : lastName = player.dataValues.lastName;
+            req.body.position ? position = req.body.position : position = player.dataValues.position;
+            req.body.teamId ? teamId = req.body.teamId : teamId = player.dataValues.teamId;
+            await playerService.updatePlayer(req.params.id, firstname, lastName, position, teamId);
+            res.json({success: true});
+         })
+      } else {
+         next(createError(400, "This player not exist"));
+      }   
    } else {
       next(createError(400, "Cannot update this player, make sure all args has been sent"));
    }

@@ -76,14 +76,14 @@ paths:
           description: Incomplete or invalid data
         '405':
           description: Invalid input
-  /teams/{name} :
+  /teams/{id} :
     get:
       tags:
         - teams
-      summary: Finds teams by name
-      operationId: getTeamsByName
+      summary: Finds teams by id
+      operationId: getTeamsById
       parameters:
-        - name: name
+        - name: id
           in: path
           required: true
           schema:
@@ -103,9 +103,9 @@ paths:
       summary: Deletes a team
       operationId: deleteTeam
       parameters:
-        - name: name
+        - name: id
           in: path
-          description: Teams name to delete
+          description: Teams id to delete
           required: true
           schema:
             type: string
@@ -114,6 +114,24 @@ paths:
           description: Successful operation
         '400':
           description: Invalid team value
+    patch:
+      tags:
+        - teams
+      summary: Update a team
+      operationId: updateTeam
+      parameters:
+        - name: id
+          in: path
+          description: Team id to updateTeam
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Cannot update this team
+        
   /players:
     get:
       tags:
@@ -140,16 +158,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/responses/ResourceCreated"         
+        '400':
+          description: Error when creating this player
         '405':
           description: Invalid input
-  /players/{name}:
+  /players/{id}:
     get:
       tags:
         - players
       summary: Finds teams by player
-      operationId: getPlayerByName
+      operationId: getPlayerById
       parameters:
-        - name: name
+        - name: id
           in: path
           required: true
           schema:
@@ -161,15 +181,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Player'
+        '404':
+          description: Player not found
     delete:
       tags:
         - players
       summary: Deletes a player
       operationId: deletePlayer
       parameters:
-        - name: name
+        - name: id
           in: path
-          description: Player name to delete
+          description: Player id to delete
           required: true
           schema:
             type: string
@@ -177,7 +199,30 @@ paths:
         '200':
           description: Successful operation
         '400':
-          description: Invalid player name value
+          description: Invalid player id value
+        '500':
+          description: Unknown error
+        '404':
+          description: Player not found
+    patch:
+      tags:
+        - players
+      summary: Update player
+      operationId: updatePlayer
+      parameters:
+        - name: id
+          in: path
+          description: Player id to update
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid value
+        '500':
+          description: Unknown error
   /users:
     get:
       tags:
@@ -191,6 +236,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UserList"
+        '500':
+          description: Unknown error
     post:
       tags:
         - users
@@ -209,10 +256,10 @@ paths:
             schema:
               $ref: '#/components/schemas/User'
       responses:
-        '200':
+        '201':
           description: successful operation
         '400':
-          description: Invalid pet value
+          description: Invalid arguments
   /users/{id}:
     get:
       tags:
@@ -249,6 +296,25 @@ paths:
           description: Successful operation
         '400':
           description: Invalid player name value
+    patch:
+      tags:
+        - users
+      summary: Update user
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          description: User id to update
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid value
+        '500':
+          description: Unknown error
   /auth:
     post:
       tags:

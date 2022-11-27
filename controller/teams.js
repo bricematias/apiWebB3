@@ -57,12 +57,17 @@ exports.deleteTeam = async (req, res, next) => {
 exports.updateTeam = async (req, res, next) => {
     if(req.body && req.params.id) {
         const oldTeam = await teamsService.getTeamsById(req.params.id);
-        let nameTeam;
-        oldTeam.map(async (team) => {
-            req.body.nameTeam ? nameTeam = req.body.nameTeam : nameTeam = team.dataValues.nameTeam;
-            await teamsService.updateTeam(req.params.id, nameTeam);
-            res.json({success: true});
-        })
+        if(oldTeam.length === 1){
+            let nameTeam;
+            oldTeam.map(async (team) => {
+                req.body.nameTeam ? nameTeam = req.body.nameTeam : nameTeam = team.dataValues.nameTeam;
+                await teamsService.updateTeam(req.params.id, nameTeam);
+                res.json({success: true});
+            })
+        } else {
+            next(createError(400, "This team not exist"));
+        }
+        
     } else {
         next(createError(400, "Cannot update this team, make sure all args has been sent"));
     }

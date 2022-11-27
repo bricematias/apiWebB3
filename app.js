@@ -7,11 +7,11 @@ const router = require('./router/index');
 app.use(cors());
 app.use(express.json());
 
-// app.use(
-//     OpenApiValidator.middleware({
-//         apiSpec: './open_api.yaml'
-//     })
-// );
+app.use(
+    OpenApiValidator.middleware({
+        apiSpec: './open_api.yaml'
+    })
+);
 
 app.use(router);
 
