@@ -13,4 +13,4 @@ Depandances:
     - axios
     - json
     
-Change name and password of database in "db.config.js"
+Change username, database and password of database in "db.config.js"
