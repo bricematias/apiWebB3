@@ -57,6 +57,8 @@ paths:
     post:
       tags:
         - teams
+      security:
+        - bearerAuth: []
       summary: Add a team
       description: Add a new team
       operationId: addTeam
@@ -100,6 +102,8 @@ paths:
     delete:
       tags:
         - teams
+      security:
+        - bearerAuth: []
       summary: Deletes a team
       operationId: deleteTeam
       parameters:
@@ -148,6 +152,8 @@ paths:
     post:
       tags:
         - players
+      security:
+        - bearerAuth: []
       summary: Add a player
       description: Add a new player
       operationId: addPlayer
@@ -186,6 +192,8 @@ paths:
     delete:
       tags:
         - players
+      security:
+        - bearerAuth: []
       summary: Deletes a player
       operationId: deletePlayer
       parameters:
@@ -227,6 +235,8 @@ paths:
     get:
       tags:
         - users
+      security:
+        - bearerAuth: []
       summary: Returns All User
       operationId: getAllUsers
       responses:
@@ -264,6 +274,8 @@ paths:
     get:
       tags:
        - users
+      security:
+        - bearerAuth: []
       summary: Finds users by id
       operationId: getUserById
       parameters:
@@ -282,6 +294,8 @@ paths:
     delete:
       tags:
         - users
+      security:
+        - bearerAuth: []
       summary: Deletes a player
       operationId: deleteUser
       parameters:
@@ -456,3 +470,9 @@ components:
                 type: integer
                 example: 1
                 description: "The id of the ressource created"
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Set your JWT token
