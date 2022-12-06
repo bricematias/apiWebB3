@@ -1,8 +1,8 @@
 # apiWebB3
 
-Groupe : 
-MATIAS Brice
-CATURLA Matias
+We are a team of two mens name : Matias and Brice.
+We had work on a basket sport api. Coach need this api to manage all players
+and all teams to prepare the next transfer phase.
 
 Depandances:
     - node
