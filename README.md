@@ -1,5 +1,9 @@
 # apiWebB3
 
+Groupe : 
+MATIAS Brice
+CATURLA Matias
+
 Depandances:
     - node
     - sequelize
